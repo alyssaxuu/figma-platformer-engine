@@ -1,0 +1,75 @@
+@font-face {
+	font-family: 'Ilisarniq Demi';
+	src: url(assets/Ilisarniq-Demi.woff);
+}
+@font-face {
+	font-family: 'Ilisarniq Bold';
+	src: url(assets/Ilisarniq-Bold.woff);
+}
+@font-face {
+	font-family: 'Ilisarniq Black';
+	src: url(assets/Ilisarniq-Black.woff);
+}
+@font-face {
+	font-family: 'Ilisarniq Light';
+	src: url(assets/Ilisarniq-Light.woff);
+}
+body {
+	background-color: #000;
+	margin: 0;
+	overflow: hidden;
+}
+#container {
+	display: table;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: url(assets/back.png) no-repeat;
+	background-size: auto 100%;
+	text-align: center;
+}
+#social {
+	position: absolute;
+	right: 0px;
+	top: 40px;
+}
+#github {
+	margin-left: 10px;
+}
+canvas {
+    border: 2px solid #FFF;
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    visibility: hidden;
+}
+.running {
+    visibility: visible;
+}
+#center {
+    display: table-cell;
+	vertical-align: middle;
+}
+@media only screen and (max-width: 484px) {
+	#social {
+		text-align: center;
+		right: -50px;
+	}
+}
+@media only screen and (max-width: 700px) {
+	#github {
+		margin-left: 0px!important;
+	}
+}
+@media only screen and (max-width: 349px) {
+	#social {
+		right: -70px;
+	}
+}
+@media only screen and (max-width: 332px) {
+	#social {
+		display: none;
+	}
+}
