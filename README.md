@@ -16,5 +16,3 @@ Build a platformer in [Figma](https://figma.com) without code. As seen [here](ht
 - Health pickups
 - Gems
 - Custom game over & complete screens
-
-Made by 18 y/o 👩 [Alyssa](https://twitter.com/alyssaxuu). Feel free to reach out to me through email at hi@alyssax.com or [on Twitter](https://twitter.com/alyssaxuu) if you have any questions or feedback! 💜
