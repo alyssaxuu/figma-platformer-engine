@@ -1,14 +1,16 @@
 <?php
 session_start();
+
+/**
+ * Use Figma OAuth2 (Connected Apps) 
+ */
 $filename = $_SESSION["fileurl"];
 $_SESSION["done"] = 1;
 $code = $_POST["code"];
 $state = $_POST["state"];
-// Redirect URL
-$redirect = "https://alyssax.com/x/platformer/play";
-// Client & secret keys
-$client = "YOUR_CLIENT_ID";
-$secret = "SECRET";
+$redirect = "http://localhost/figma-platformer-engine/"; //PATH TO YOUR GAME
+$client = ""; //CLIENT ID OF YOUR REGISTERED APP IN FIGMA;
+$secret = ""; //SECRET OF YOUR REGISTERED APP IN FIGMA;
 
 $ch = curl_init();
 
@@ -22,12 +24,28 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $ok = json_decode(curl_exec($ch));
 curl_close ($ch);
 
+$header = "Authorization: Bearer " . $ok->access_token;
+/**
+ *  End OAuth2
+ */
+
+/**
+ * Use Figma Personal Access Token
+ *
+$token = ""; //YOUR PERSONAL ACCESS TOKEN FROM FIGMA
+$filename = $_SESSION["fileurl"];
+$header = "X-Figma-Token: " . $token;
+/**
+ * End Personal Access Token
+ */
+
 $opts = array(
   'http'=>array(
     'method'=>"GET",
-    'header'=>"Authorization: Bearer " . $ok->access_token
+    'header'=>$header
   )
 );
+
 $context = stream_context_create($opts);
 $result = file_get_contents( "https://api.figma.com/v1/files/".$filename, false, $context);
 $json = json_decode($result, true);
@@ -60,7 +78,7 @@ foreach($nodes as $node) {
 $opts = array(
   'http'=>array(
     'method'=>"GET",
-    'header'=>"Authorization: Bearer " . $ok->access_token
+    'header'=>$header
   )
 );
 $context = stream_context_create($opts);

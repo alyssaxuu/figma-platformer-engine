@@ -246,7 +246,8 @@ function update(){
           if(player.x+player.width>=x && player.x <=x+w && player.y<=y+h && player.y+player.height>=y) {
           level++;
           gems = [];
-          enemyY = [];
+          enemyY = []; 
+          u=0; //needs to be reset
           enemyX = [];
           hearts = [];
           frame = 0;
@@ -265,7 +266,8 @@ function update(){
           level++;
           key = 0;
           gems = [];
-          enemyY = [];
+          enemyY = []; 
+          u=0; //needs to be reset
           enemyX = [];
           hearts = [];
           frame = 0;
@@ -300,7 +302,7 @@ function update(){
             ctx.drawImage(img,x,y,w,h);
         }
     }
-    if(hearts[i] == "1" && playerx+player.width>=x && player.x <=x+w && player.y<=y+h && player.y+player.height>=y) {
+    if(hearts[i] == "1" && player.x+player.width>=x && player.x <=x+w && player.y<=y+h && player.y+player.height>=y) {
         hearts[i] = "0";
         if (lives < 3) {
             lives++;
@@ -400,31 +402,35 @@ document.body.addEventListener("keyup", function(e) {
 }
 
 $(document).ready(function(){
+  var url = new URL(window.location.href);
+  var searchParams = new URLSearchParams(url.search);
+  var code = searchParams.get('code');
+  var state = searchParams.get('state');
 
-if ($("#code").val() != "0" && $("#state").val() != "0") {
-    var code = $("#code").val();
-    var state = $("#state").val();
+  if (code != null && state != null) {
     $.ajax({
-        url: "request.php",
-        type:"post",
-        data:{code:code, state:state},
-        success: function(result){
-            console.log(result.toString());
-            done = JSON.parse(result);
-            for (var i = 0; i<done[1].length; i++) {
-                newimage[i] = new Image();
-		        newimage[i].onload = function (e) {
-		            arr.push(e.target);
-		            if (arr.length == done[1].length) {
-		                run = true;
-		                $("#canvas").addClass("running");
-		                runCanvas();
-		            }
-		        }
-		        newimage[i].src = done[0][done[1][i]];
-            };
-        }
+      url: "request.php",
+      type:"post",
+      data:{code:code, state:state},
+      success: function(result){
+        console.log(result.toString());
+        done = JSON.parse(result);
+        for (var i = 0; i<done[1].length; i++) {
+          newimage[i] = new Image();
+          newimage[i].onload = function (e) {
+            arr.push(e.target);
+            if (arr.length == done[1].length) {
+              run = true;
+              $("#canvas").addClass("running");
+              runCanvas();
+            }
+          }
+          newimage[i].src = done[0][done[1][i]];
+        };
+      }
     });
-}
+  } else {
+    window.location.replace("http://localhost/figma-platformer-engine/process/"); //PATH TO YOUR GAME WITH process/ AT THE END
+  }
  
 });
